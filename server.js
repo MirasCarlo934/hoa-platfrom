@@ -40,6 +40,7 @@ const server = http.createServer(async (req, res) => {
           });
           return;
         }
+        // Generate the visit URL and QR code for it
         const uuid = uuidv4();
         const qrPayload = {
           uuid,
@@ -48,7 +49,10 @@ const server = http.createServer(async (req, res) => {
           personToVisit: data.personToVisit,
           addressToVisit: data.addressToVisit
         };
-        QRCode.toDataURL(JSON.stringify(qrPayload), (err, url) => {
+        const encoded = encodeURIComponent(JSON.stringify(qrPayload));
+        // Use the server's IP address for the visit URL
+        const visitUrl = `http://${hostname}:${port}/visit?data=${encoded}`;
+        QRCode.toDataURL(visitUrl, (err, url) => {
           if (err) {
             res.statusCode = 500;
             res.end('Error generating QR');
@@ -56,7 +60,7 @@ const server = http.createServer(async (req, res) => {
           }
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify({ uuid, qr: url }));
+          res.end(JSON.stringify({ uuid, qr: url, visitUrl }));
         });
       } catch (e) {
         res.statusCode = 400;
