@@ -74,10 +74,25 @@ const server = http.createServer(async (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
     if (decoded) {
-      res.end(`<!DOCTYPE html><html><head><title>Visitor Info</title><style>body{font-family:sans-serif;margin:2em;}dt{font-weight:bold;}dd{margin-bottom:1em;}</style></head><body><h1>Visitor Information</h1><dl><dt>UUID</dt><dd>${decoded.uuid}</dd><dt>Name of Visitor</dt><dd>${decoded.visitorName}</dd><dt>Car Plate Number</dt><dd>${decoded.carPlate}</dd><dt>Person to Visit</dt><dd>${decoded.personToVisit}</dd><dt>Address to Visit</dt><dd>${decoded.addressToVisit}</dd></dl></body></html>`);
+      // Redirect to a new endpoint that serves the visitor info page
+      res.statusCode = 302;
+      res.setHeader('Location', `/visitor-info?data=${encodeURIComponent(encoded)}`);
+      res.end();
     } else {
       res.end('<h1>Invalid or missing data in QR code.</h1>');
     }
+  } else if (req.url.startsWith('/visitor-info?data=')) {
+    // Serve the visitor-info.html file and let it handle decoding
+    fs.readFile(path.join(__dirname, 'visitor-info.html'), (err, data) => {
+      if (err) {
+        res.statusCode = 500;
+        res.end('Error loading visitor info page');
+        return;
+      }
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/html');
+      res.end(data);
+    });
   } else {
     res.statusCode = 404;
     res.end('Not found');

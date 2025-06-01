@@ -69,7 +69,8 @@
         body: JSON.stringify({ qrUrl: visitUrl })
       });
       const qrData = await qrRes.json();
-      document.getElementById('qr').innerHTML = `<img src="${qrData.qr}" alt="QR Code" style="cursor:pointer;" />`;
+      // Show the QR code as a clickable link to the visit page
+      document.getElementById('qr').innerHTML = `<a href="${visitUrl}" target="_blank"><img src="${qrData.qr}" alt="QR Code" style="cursor:pointer;" /></a>`;
     }
   </script>
 </body>
