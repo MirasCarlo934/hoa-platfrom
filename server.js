@@ -1,9 +1,9 @@
 const http = require('http');
 const path = require('path');
 const serveIndex = require('./src/routes/index');
-const generateQrHandler = require('./src/routes/generateQr');
+const generateQrHandler = require('./src/routes/generate-qr');
 const visitHandler = require('./src/routes/visit');
-const visitorInfoHandler = require('./src/routes/visitorInfo');
+const visitorInfoHandler = require('./src/routes/visitor-info');
 
 const hostname = 'localhost';
 const port = 3000;
