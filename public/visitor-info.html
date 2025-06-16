@@ -10,29 +10,7 @@
 </head>
 <body>
   <h1>Visitor Information</h1>
+  <!-- The server will inject visitor details here -->
   <dl id="visitor-details"></dl>
-  <script>
-    function getQueryParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
-    }
-    const encoded = getQueryParam('data');
-    let decoded = null;
-    try {
-      decoded = JSON.parse(decodeURIComponent(encoded));
-    } catch (e) {}
-    const dl = document.getElementById('visitor-details');
-    if (decoded) {
-      dl.innerHTML = `
-        <dt>UUID</dt><dd>${decoded.uuid}</dd>
-        <dt>Name of Visitor</dt><dd>${decoded.visitorName}</dd>
-        <dt>Car Plate Number</dt><dd>${decoded.carPlate}</dd>
-        <dt>Person to Visit</dt><dd>${decoded.personToVisit}</dd>
-        <dt>Address to Visit</dt><dd>${decoded.addressToVisit}</dd>
-      `;
-    } else {
-      dl.innerHTML = '<dt>Error</dt><dd>Invalid or missing data in QR code.</dd>';
-    }
-  </script>
 </body>
 </html>

@@ -26,7 +26,7 @@ const generateQrHandler = async (req: Request, res: Response) => {
     addressToVisit: data.addressToVisit
   };
   const encrypted = encodeURIComponent(encrypt(JSON.stringify(qrPayload)));
-  const visitUrl = `http://localhost:3000/visit?data=${encrypted}`;
+  const visitUrl = `http://localhost:3000/visitor-info?data=${encrypted}`;
   try {
     const url = await QRCode.toDataURL(visitUrl);
     res.json({ uuid, qr: url, visitUrl });

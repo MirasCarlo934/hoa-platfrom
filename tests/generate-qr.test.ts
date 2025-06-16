@@ -43,7 +43,7 @@ describe('generateQrHandler', () => {
     expect(jsonMock).toHaveBeenCalledWith({
       uuid: 'mock-uuid',
       qr: 'mock-qr-url',
-      visitUrl: expect.stringContaining('/visit?data=')
+      visitUrl: expect.stringContaining('/visitor-info?data=')
     });
     // The data in the URL should be encrypted (not plain JSON)
     const call = jsonMock.mock.calls[0][0];
