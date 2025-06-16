@@ -39,8 +39,6 @@ describe('generateQrHandler', () => {
     const QRCode = require('qrcode');
     QRCode.toDataURL.mockImplementationOnce(() => Promise.reject('fail'));
     await generateQrHandler(req as Request, res as Response);
-    // Wait for the promise to resolve in the event loop
-    await new Promise(process.nextTick);
     expect(statusMock).toHaveBeenCalledWith(500);
     expect(sendMock).toHaveBeenCalledWith('Error generating QR');
   });
