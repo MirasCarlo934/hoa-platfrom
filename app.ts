@@ -3,6 +3,9 @@ import path from 'path';
 import generateQrHandler from './src/routes/generate-qr';
 import visitHandler from './src/routes/visit';
 import visitorInfoHandler from './src/routes/visitor-info';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const port = 3000;
