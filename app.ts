@@ -1,10 +1,11 @@
+// This needs to be at the top of the file to ensure environment variables are loaded before any other imports.
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express, { Request, Response } from 'express';
 import path from 'path';
 import generateQrHandler from './src/routes/generate-qr';
 import visitorInfoHandler from './src/routes/visitor-info';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const app = express();
 const port = 3000;
