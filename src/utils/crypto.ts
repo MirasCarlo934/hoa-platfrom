@@ -1,6 +1,10 @@
 import crypto from 'crypto';
 
-const ENCRYPTION_KEY_HEX = process.env.QR_SECRET_KEY || '7b2f684c019dbc60084edbd3b972b82d6b8b3351880ea01bb6bb9ecd9a556573'; // 32 bytes hex
+if (!process.env.QR_SECRET_KEY) {
+  throw new Error('QR_SECRET_KEY environment variable must be set.');
+}
+
+const ENCRYPTION_KEY_HEX = process.env.QR_SECRET_KEY; // 32 bytes hex
 const ENCRYPTION_KEY = Buffer.from(ENCRYPTION_KEY_HEX, 'hex');
 const IV_LENGTH = 16;
 

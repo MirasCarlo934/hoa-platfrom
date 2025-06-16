@@ -5,18 +5,10 @@ jest.mock('uuid', () => ({ v4: () => 'mock-uuid' }));
 jest.mock('qrcode', () => ({
   toDataURL: jest.fn(() => Promise.resolve('mock-qr-url'))
 }));
-jest.mock('crypto', () => {
-  const actual = jest.requireActual('crypto');
-  return {
-    ...actual,
-    randomBytes: () => Buffer.from('1234567890123456'),
-    createCipheriv: () => {
-      const update = jest.fn(() => Buffer.from('encrypted'));
-      const final = jest.fn(() => Buffer.from('final'));
-      return { update, final };
-    }
-  };
-});
+
+jest.mock('../src/utils/crypto', () => ({
+  encrypt: jest.fn().mockReturnValue('mock-encrypted-data')
+}));
 
 describe('generateQrHandler', () => {
   let req: Partial<Request>;
@@ -39,17 +31,14 @@ describe('generateQrHandler', () => {
   });
 
   it('should respond with uuid, qr, and visitUrl', async () => {
+    const { encrypt } = require('../src/utils/crypto');
     await generateQrHandler(req as Request, res as Response);
+    expect(encrypt).toHaveBeenCalled();
     expect(jsonMock).toHaveBeenCalledWith({
       uuid: 'mock-uuid',
       qr: 'mock-qr-url',
-      visitUrl: expect.stringContaining('/visitor-info?data=')
+      visitUrl: expect.stringContaining('/visitor-info?data=mock-encrypted-data')
     });
-    // The data in the URL should be encrypted (not plain JSON)
-    const call = jsonMock.mock.calls[0][0];
-    const urlParam = call.visitUrl.split('data=')[1];
-    expect(urlParam).not.toContain('visitorName');
-    expect(urlParam).not.toContain('carPlate');
   });
 
   it('should return 500 if QRCode.toDataURL throws', async () => {
