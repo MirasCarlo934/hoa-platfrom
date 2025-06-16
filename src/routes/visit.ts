@@ -26,12 +26,7 @@ const visitHandler = (req: Request, res: Response) => {
 
     return res.redirect(`/visitor-info?data=${encodeURIComponent(decrypted)}`);
   } catch (e) {
-    decrypted = decrypt(decodeURIComponent(encrypted));
-    
-    // Validate JSON structure
-    JSON.parse(decrypted);
-
-    return res.redirect(`/visitor-info?data=${encodeURIComponent(decrypted)}`);
+    return res.status(400).send('<h1>Invalid or missing data in QR code.</h1>');
   }
 };
 
