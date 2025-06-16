@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Visitor Info</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    dt { font-weight: bold; }
+    dd { margin-bottom: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Visitor Information</h1>
+  <dl id="visitor-details">
+    <% if (visitor) { %>
+      <dt>UUID</dt><dd><%= visitor.uuid %></dd>
+      <dt>Name of Visitor</dt><dd><%= visitor.visitorName %></dd>
+      <dt>Car Plate Number</dt><dd><%= visitor.carPlate %></dd>
+      <dt>Person to Visit</dt><dd><%= visitor.personToVisit %></dd>
+      <dt>Address to Visit</dt><dd><%= visitor.addressToVisit %></dd>
+    <% } else { %>
+      <dt>Error</dt><dd>Invalid or missing data in QR code.</dd>
+    <% } %>
+  </dl>
+</body>
+</html>
