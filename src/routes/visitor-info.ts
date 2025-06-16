@@ -7,13 +7,7 @@ const visitorInfoHandler = (req: Request, res: Response) => {
   let error = false;
   if (dataParam) {
     try {
-      // Try to decrypt, if fails, treat as plain JSON
-      let decrypted: string;
-      try {
-        decrypted = decrypt(decodeURIComponent(dataParam));
-      } catch {
-        decrypted = decodeURIComponent(dataParam);
-      }
+      const decrypted = decrypt(decodeURIComponent(dataParam));
       decoded = JSON.parse(decrypted);
     } catch (e) {
       error = true;
