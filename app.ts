@@ -6,7 +6,7 @@ import express, { Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 
-import authRouter from './src/auth';
+import authRouter from './src/routes/auth';
 import { requireJwt } from './src/middleware/auth';
 import indexRouter from './src/routes';
 
