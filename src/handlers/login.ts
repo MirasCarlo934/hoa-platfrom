@@ -17,7 +17,3 @@ export function loginHandler(req: Request, res: Response) {
   }
 }
 
-export function logoutHandler(req: Request, res: Response) {
-  res.clearCookie('token');
-  res.redirect('/login');
-}

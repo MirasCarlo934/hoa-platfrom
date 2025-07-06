@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+
 import { JWT_SECRET } from '../utils/auth';
 
 export function requireJwt(req: Request, res: Response, next: NextFunction) {
