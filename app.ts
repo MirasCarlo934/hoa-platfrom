@@ -7,8 +7,9 @@ import path from 'path';
 import generateQrHandler from './src/handlers/generate-qr';
 import visitorInfoHandler from './src/handlers/visitor-info';
 import indexHandler from './src/handlers/index';
-import authRouter, { requireJwt } from './src/auth';
+import authRouter from './src/auth';
 import cookieParser from 'cookie-parser';
+import { requireJwt } from './src/middleware/auth';
 
 const app = express();
 const port = 3000;
