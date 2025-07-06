@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { loginHandler, logoutHandler } from './handlers/auth';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_jwt_secret';
 
@@ -22,24 +23,7 @@ const authRouter = Router();
 authRouter.get('/login', (req: Request, res: Response) => {
   res.render('login', { error: undefined });
 });
-
-authRouter.post('/login', (req: Request, res: Response) => {
-  const { username, password } = req.body;
-  if (username && password) {
-    const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
-    res.cookie('token', token, { httpOnly: true });
-    res.cookie('user', {
-      username: username,
-    });
-    res.redirect('/');
-  } else {
-    res.status(401).render('login', { error: 'Invalid username or password' });
-  }
-});
-
-authRouter.post('/logout', (req: Request, res: Response) => {
-  res.clearCookie('token');
-  res.redirect('/login');
-});
+authRouter.post('/login', loginHandler);
+authRouter.post('/logout', logoutHandler);
 
 export default authRouter;
