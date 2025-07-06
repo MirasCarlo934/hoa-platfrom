@@ -4,9 +4,9 @@ dotenv.config();
 
 import express, { Request, Response } from 'express';
 import path from 'path';
-import generateQrHandler from './src/routes/generate-qr';
-import visitorInfoHandler from './src/routes/visitor-info';
-import indexHandler from './src/routes/index';
+import generateQrHandler from './src/handlers/generate-qr';
+import visitorInfoHandler from './src/handlers/visitor-info';
+import indexHandler from './src/handlers/index';
 import authRouter, { requireJwt } from './src/auth';
 import cookieParser from 'cookie-parser';
 

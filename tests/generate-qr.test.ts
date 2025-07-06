@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import generateQrHandler from '../src/routes/generate-qr';
+import generateQrHandler from '../src/handlers/generate-qr';
 
 jest.mock('uuid', () => ({ v4: () => 'mock-uuid' }));
 jest.mock('qrcode', () => ({
