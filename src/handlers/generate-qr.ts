@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { encrypt } from '../utils/crypto';
 
-const generateQrHandler = async (req: Request, res: Response) => {
+export default async function generateQrHandler (req: Request, res: Response) {
   const data = req.body;
   const uuid = uuidv4();
   const qrPayload = {
@@ -22,5 +22,3 @@ const generateQrHandler = async (req: Request, res: Response) => {
     res.status(500).send('Error generating QR');
   }
 };
-
-export default generateQrHandler;

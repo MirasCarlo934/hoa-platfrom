@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { loginHandler } from './handlers/login';
-import { logoutHandler } from './handlers/logout';
+import loginHandler from './handlers/login';
+import logoutHandler from './handlers/logout';
 
 const authRouter = Router();
 

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import { JWT_SECRET } from '../utils/auth';
 
-export function loginHandler(req: Request, res: Response) {
+export default function loginHandler(req: Request, res: Response) {
   const { username, password } = req.body;
   if (username && password) {
     const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });

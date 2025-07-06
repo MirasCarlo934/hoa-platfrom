@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { decrypt } from '../utils/crypto';
 
-const visitorInfoHandler = (req: Request, res: Response) => {
+export default async function visitorInfoHandler(req: Request, res: Response) {
   const dataParam = req.query.data as string;
   let decoded: any = null;
   let error = false;
@@ -17,5 +17,3 @@ const visitorInfoHandler = (req: Request, res: Response) => {
   }
   res.render('visitor-info', { visitor: !error && decoded ? decoded : null });
 };
-
-export default visitorInfoHandler;
