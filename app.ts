@@ -5,25 +5,31 @@ dotenv.config();
 import express, { Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-
 import authRouter from './src/routes/auth';
 import { requireJwt } from './src/middleware/auth';
 import indexRouter from './src/routes';
 
+// Setup app
+if (!process.env.APP_PORT) {
+  throw new Error('APP_PORT environment variable must be set.');
+}
 const app = express();
-const port = 3000;
+const port = process.env.APP_PORT;
 
+// Setup app configuration
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Setup app middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 
+// Setup routes
 app.use(authRouter);
 app.use(indexRouter);
-app.use(requireJwt, express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // for access to public files
 
 app.listen(port, () => {
   console.log(`Express server running at http://localhost:${port}/`);

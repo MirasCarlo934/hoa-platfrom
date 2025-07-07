@@ -7,8 +7,9 @@ import visitorInfoHandler from "../handlers/visitor-info";
 
 const indexRouter = Router();
 
-indexRouter.get('/', requireJwt, homeHandler);
-indexRouter.post('/generate-qr', requireJwt, generateQrHandler);
-indexRouter.get('/visitor-info', requireJwt, visitorInfoHandler);
+indexRouter.use(requireJwt); // Apply JWT authentication to all routes in this router
+indexRouter.get('/', homeHandler);
+indexRouter.post('/generate-qr', generateQrHandler);
+indexRouter.get('/visitor-info', visitorInfoHandler);
 
 export default indexRouter;

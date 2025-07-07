@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-
-import { JWT_SECRET } from '../utils/auth';
+import { authenticate, JWT_SECRET } from '../utils/auth';
+import User from '../types/user';
 
 export default function loginHandler(req: Request, res: Response) {
   const { username, password } = req.body;
-  if (username && password) {
+  if (authenticate(username, password)) {
     const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
     res.cookie('token', token, { httpOnly: true });
     res.cookie('user', {
