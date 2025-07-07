@@ -14,11 +14,11 @@ export type UserWithoutPasswordType = {
 };
 
 export default class User implements UserType {
-  username: string;
-  password: string;
-  role: string;
-  firstname: string;
-  lastname: string;
+  readonly username: string;
+  readonly password: string;
+  readonly role: string;
+  readonly firstname: string;
+  readonly lastname: string;
 
   constructor(obj: UserType) {
     this.username = obj.username;
