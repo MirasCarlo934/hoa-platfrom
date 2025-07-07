@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { authenticate, JWT_SECRET } from '../utils/auth';
-import User from '../types/user';
 
-export default function loginHandler(req: Request, res: Response) {
+export default function authenticateHandler(req: Request, res: Response) {
   const { username, password } = req.body;
   if (authenticate(username, password)) {
     const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
