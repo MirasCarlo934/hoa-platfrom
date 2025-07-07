@@ -24,7 +24,9 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "dev": "nodemon --watch ./app.ts --watch src --watch public --watch views --ext ts,html,ejs,css --exec \"rm -rf dist && npx tsc && cp -R public dist && cp -R views dist && npm test && node dist/app.js\"",
-    "test": "jest"
+    "test": "jest",
+    "prestart": "rm -rf dist && npx tsc && cp -R public dist && cp -R views dist",
+    "start": "node dist/app.js",
+    "dev": "nodemon --watch ./app.ts --watch src --watch public --watch views --ext ts,html,ejs,css --exec \"npm test && npm start\""
   }
 }
