@@ -12,7 +12,7 @@
     <% if (typeof error !== 'undefined' && error) { %>
       <div class="error"><%= error %></div>
     <% } %>
-    <form method="POST" action="/login">
+    <form method="POST" action="/authenticate">
       <label for="username">Username</label>
       <input type="text" id="username" name="username" required autofocus>
       <label for="password">Password</label>
