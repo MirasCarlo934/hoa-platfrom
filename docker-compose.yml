@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: c8yhub
+    ports:
+      - "5432:5432"
+    volumes:
+      - c8yhub_db_data:/var/lib/postgresql/data
+  app:
+    image: cogaenic/c8yhub:latest
+    ports:
+      - "9000:9000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:password@db:5432/c8yhub"
+
+volumes:
+  c8yhub_db_data:
