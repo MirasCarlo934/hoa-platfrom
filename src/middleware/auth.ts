@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-import { JWT_SECRET } from '../utils/auth';
+import { getToken, JWT_SECRET } from '../utils/auth';
 
 /**
  * Middleware to require JWT authentication before accessing protected routes in the next middleware.
@@ -10,11 +10,10 @@ import { JWT_SECRET } from '../utils/auth';
  * @param req Express request object
  * @param res Express response object
  * @param next Express next middleware function
- * @returns 
  */
 export function requireJwt(req: Request, res: Response, next: NextFunction) {
   // Ensure req.cookies is defined (cookie-parser must be used before this middleware)
-  const token = req.cookies && req.cookies['token'];
+  const token = getToken(req);
   if (!token) return res.redirect('/login');
   try {
     const payload = jwt.verify(token, JWT_SECRET);

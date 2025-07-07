@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import { requireJwt } from "../middleware/auth";
 import homeHandler from "../handlers/home";
 import generateQrHandler from "../handlers/generate-qr";

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { authenticate, JWT_SECRET } from '../utils/auth';
+import { JWT_SECRET } from '../utils/auth';
+import { authenticate } from '../services/auth';
 
 export default function authenticateHandler(req: Request, res: Response) {
   const { username, password } = req.body;

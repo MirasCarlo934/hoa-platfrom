@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { authRouter } from '../routes/auth';
+import { getToken } from '../utils/auth';
 
 export default function loginHandler (req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies && req.cookies['token'];
+  const token = getToken(req);
   if (!token) {
     res.render('login', { error: undefined });
   } else {

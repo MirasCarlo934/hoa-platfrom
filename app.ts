@@ -29,7 +29,7 @@ app.use(cookieParser());
 // Setup routes
 app.use(authRouter);
 app.use(indexRouter);
-app.use(express.static(path.join(__dirname, 'public'))); // for access to public files
+app.use(requireJwt, express.static(path.join(__dirname, 'public'))); // for access to public files
 
 app.listen(port, () => {
   console.log(`Express server running at http://localhost:${port}/`);
