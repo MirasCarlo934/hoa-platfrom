@@ -18,6 +18,7 @@ model User {
   id            String      @id @default(uuid())
   username      String      @unique
   password      String
+  role          String      
   firstname     String
   lastname      String
   createdDate   DateTime    @default(now())
