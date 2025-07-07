@@ -18,7 +18,7 @@ const port = process.env.APP_PORT;
 
 // Setup app configuration
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
 
 // Setup app middleware
 app.use(express.json());
@@ -29,7 +29,7 @@ app.use(cookieParser());
 // Setup routes
 app.use(authRouter);
 app.use(indexRouter);
-app.use(requireJwt, express.static(path.join(__dirname, 'public'))); // for access to public files
+app.use(express.static(path.join(__dirname, 'public'))); // for access to public files
 
 app.listen(port, () => {
   console.log(`Express server running at http://localhost:${port}/`);
