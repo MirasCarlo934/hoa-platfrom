@@ -18,7 +18,7 @@ const port = process.env.APP_PORT;
 
 // Setup app configuration
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'src/views'));
+app.set('views', path.join(__dirname, 'views'));
 
 // Setup app middleware
 app.use(express.json());
