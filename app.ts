@@ -6,8 +6,8 @@ import express, { Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import authRouter from './src/routes/auth';
-import { requireJwt } from './src/middleware/auth';
 import indexRouter from './src/routes';
+import { seedDatabase } from './src/utils/db';
 
 // Setup app
 if (!process.env.APP_PORT) {
@@ -15,6 +15,9 @@ if (!process.env.APP_PORT) {
 }
 const app = express();
 const port = process.env.APP_PORT;
+if (process.env.ENVIRONMENT !== 'PROD') {
+  seedDatabase();
+}
 
 // Setup app configuration
 app.set('view engine', 'ejs');
