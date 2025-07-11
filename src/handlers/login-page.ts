@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { clearToken, getToken } from '../utils/cookies';
 
-export default function loginHandler (req: Request, res: Response, next: NextFunction) {
+export default function loginPageHandler (req: Request, res: Response, next: NextFunction) {
   const token = getToken(req);
   if (!token) {
     clearToken(res);
