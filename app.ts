@@ -9,6 +9,7 @@ import authRouter from './src/routes/auth';
 import indexRouter from './src/routes';
 import { seedDatabase } from './src/utils/db';
 import publicRouter from './src/routes/public';
+import { requireJwt } from './src/middleware/auth';
 
 // Setup app
 if (!process.env.APP_PORT) {
@@ -31,10 +32,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 
 // Setup routes
+app.use(express.static(path.join(__dirname, 'public'))); // for access to public files
 app.use(publicRouter);
 app.use(authRouter);
+app.use(requireJwt); // Apply JWT authentication to succeeding routes
 app.use(indexRouter);
-app.use(express.static(path.join(__dirname, 'public'))); // for access to public files
 
 app.listen(port, () => {
   console.log(`Express server running at http://localhost:${port}/`);
