@@ -10,6 +10,9 @@ jest.mock('../src/utils/crypto', () => ({
   encrypt: jest.fn().mockReturnValue('mock-encrypted-data')
 }));
 
+jest.mock('../src/utils/env', () => jest.fn(() => 'http://localhost:3000'));
+jest.mock('../src/routes', () => ({ visitorInfoRoute: 'visitor-info' }));
+
 describe('generateQrHandler', () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
@@ -33,7 +36,13 @@ describe('generateQrHandler', () => {
   it('should respond with uuid, qr, and visitUrl', async () => {
     const { encrypt } = require('../src/utils/crypto');
     await generateQrHandler(req as Request, res as Response);
-    expect(encrypt).toHaveBeenCalled();
+    expect(encrypt).toHaveBeenCalledWith(JSON.stringify({
+      uuid: 'mock-uuid',
+      visitorName: 'John',
+      carPlate: 'ABC123',
+      personToVisit: 'Jane',
+      addressToVisit: '123 Main St'
+    }));
     expect(jsonMock).toHaveBeenCalledWith({
       uuid: 'mock-uuid',
       qr: 'mock-qr-url',
@@ -47,5 +56,12 @@ describe('generateQrHandler', () => {
     await generateQrHandler(req as Request, res as Response);
     expect(statusMock).toHaveBeenCalledWith(500);
     expect(sendMock).toHaveBeenCalledWith('Error generating QR');
+  });
+
+  it('should return 400 if required fields are missing', async () => {
+    req.body = {};
+    await generateQrHandler(req as Request, res as Response);
+    expect(statusMock).toHaveBeenCalledWith(400);
+    expect(sendMock).toHaveBeenCalledWith('Missing required fields');
   });
 });

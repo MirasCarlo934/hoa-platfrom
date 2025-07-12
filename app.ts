@@ -8,6 +8,7 @@ import path from 'path';
 import authRouter from './src/routes/auth';
 import indexRouter from './src/routes';
 import { seedDatabase } from './src/utils/db';
+import publicRouter from './src/routes/public';
 
 // Setup app
 if (!process.env.APP_PORT) {
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 
 // Setup routes
+app.use(publicRouter);
 app.use(authRouter);
 app.use(indexRouter);
 app.use(express.static(path.join(__dirname, 'public'))); // for access to public files
