@@ -2,7 +2,9 @@
  * Authentication-related utility functions and constants.
  */
 import { Request, Response } from 'express';
-export const JWT_SECRET = process.env.JWT_SECRET || 'default_jwt_secret';
+import getEnvVar from './env';
+
+export const JWT_SECRET = getEnvVar('JWT_SECRET');
 
 export function getToken(req: Request): string | null {
   return req.cookies && req.cookies['token'];
