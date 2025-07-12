@@ -7,19 +7,16 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import authRouter from './src/routes/auth';
 import indexRouter from './src/routes';
-import { seedDatabase } from './src/utils/db';
 import publicRouter from './src/routes/public';
 import { requireJwt } from './src/middleware/auth';
+import getEnvVar from './src/utils/env';
 
 // Setup app
 if (!process.env.APP_PORT) {
   throw new Error('APP_PORT environment variable must be set.');
 }
 const app = express();
-const port = process.env.APP_PORT;
-if (process.env.ENVIRONMENT !== 'PROD') {
-  seedDatabase();
-}
+const port = getEnvVar('APP_PORT');
 
 // Setup app configuration
 app.set('view engine', 'ejs');
