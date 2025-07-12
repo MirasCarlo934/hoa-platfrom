@@ -8,7 +8,7 @@ import path from 'path';
 import authRouter from './src/routes/auth';
 import indexRouter from './src/routes';
 import publicRouter from './src/routes/public';
-import { requireJwt } from './src/middleware/auth';
+import { requireJwtCookie } from './src/middleware/auth';
 import getEnvVar from './src/utils/env';
 
 // Setup app
@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // for access to public files
 app.use(publicRouter);
 app.use(authRouter);
-app.use(requireJwt); // Apply JWT authentication to succeeding routes
+app.use(requireJwtCookie); // Require JWT cookie for succeeding routes
 app.use(indexRouter);
 
 app.listen(port, () => {
