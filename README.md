@@ -41,3 +41,4 @@ node dist/app.js
 The app will be available at http://localhost:9000
 
 ## Deployment
+1. Run `deploy.sh`

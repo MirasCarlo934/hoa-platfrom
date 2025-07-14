@@ -4,9 +4,9 @@ FROM node:22-alpine
 WORKDIR /app
 COPY . .
 
-# Install dependencies and build the project
+# Install dependencies
 RUN npm install
 
 # Run app
 EXPOSE 9000
-CMD ["node", "dist/app.js"]
+CMD ["npm", "start"]
