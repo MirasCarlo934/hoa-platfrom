@@ -7,15 +7,16 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: c8yhub
     ports:
-      - "5432:5432"
+      - "5433:5433"
     volumes:
       - c8yhub_db_data:/var/lib/postgresql/data
   app:
-    image: cogaenic/c8yhub:latest
+    image: cpmiras/c8yhub:latest
+    platform: linux/amd64
     ports:
       - "9000:9000"
     environment:
-      DATABASE_URL: "postgresql://postgres:password@db:5432/c8yhub"
+      DATABASE_URL: "postgresql://postgres:password@db:5433/c8yhub"
 
 volumes:
   c8yhub_db_data:
