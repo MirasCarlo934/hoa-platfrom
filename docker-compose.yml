@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: c8yhub
     ports:
-      - "5433:5433"
+      - "5433:5432"
     volumes:
       - c8yhub_db_data:/var/lib/postgresql/data
   app:
