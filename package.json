@@ -27,6 +27,6 @@
     "test": "jest --passWithNoTests",
     "prestart": "rm -rf dist && npx tsc && cp -R public dist && cp -R views dist && cp -R generated dist",
     "start": "node dist/app.js",
-    "dev": "nodemon --watch ./app.ts --watch src --watch public --watch views --ext ts,html,ejs,css --exec \"npm test && npm start\""
+    "dev": "nodemon --watch ./app.ts --watch src --watch tests --watch public --watch views --ext ts,html,ejs,css --exec \"npm test && npm start\""
   }
 }
