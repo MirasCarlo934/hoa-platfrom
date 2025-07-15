@@ -62,6 +62,10 @@ describe('generateQrHandler', () => {
     req.body = {};
     await generateQrHandler(req as Request, res as Response);
     expect(statusMock).toHaveBeenCalledWith(400);
-    expect(sendMock).toHaveBeenCalledWith('Missing required fields');
+    expect(sendMock).toHaveBeenCalledWith(expect.stringContaining('Missing required fields'));
+    expect(sendMock).toHaveBeenCalledWith(expect.stringContaining('visitorName'));
+    expect(sendMock).toHaveBeenCalledWith(expect.stringContaining('carPlate'));
+    expect(sendMock).toHaveBeenCalledWith(expect.stringContaining('personToVisit'));
+    expect(sendMock).toHaveBeenCalledWith(expect.stringContaining('addressToVisit'));
   });
 });
