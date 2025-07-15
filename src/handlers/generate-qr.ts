@@ -14,7 +14,8 @@ export default async function generateQrHandler(req: Request, res: Response) {
   const requiredFields = ['visitorName', 'carPlate', 'personToVisit', 'addressToVisit'];
   const missingFields = requiredFields.filter(field => !data[field]);
   if (missingFields.length > 0) {
-    return res.status(400).send('Missing required fields: ' + missingFields.join(', '));
+    res.status(400).send('Missing required fields: ' + missingFields.join(', '));
+    return;
   }
   const uuid = uuidv4();
   const qrPayload = {
