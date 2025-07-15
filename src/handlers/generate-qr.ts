@@ -10,9 +10,11 @@ const port = getEnvVar('APP_PORT');
 
 export default async function generateQrHandler(req: Request, res: Response) {
   const data = req.body;
-  // Validate required fields
-  if (!data.visitorName || !data.carPlate || !data.personToVisit || !data.addressToVisit) {
-    res.status(400).send('Missing required fields');
+  // Validate required fields and collect missing ones
+  const requiredFields = ['visitorName', 'carPlate', 'personToVisit', 'addressToVisit'];
+  const missingFields = requiredFields.filter(field => !data[field]);
+  if (missingFields.length > 0) {
+    return res.status(400).send('Missing required fields: ' + missingFields.join(', '));
   }
   const uuid = uuidv4();
   const qrPayload = {
